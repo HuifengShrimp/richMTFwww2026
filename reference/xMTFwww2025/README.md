@@ -6,12 +6,26 @@
 
 ## 一、项目概览
 
-xMTF 是一个基于强化学习的多任务推荐系统，面向快手短视频场景。完整的运行流程分为三步：
+xMTF 是一个面向快手短视频场景的**多任务推荐流水线系统**，完整实现了候选集→粗排→精排→重排→曝光的全链路排序流程，其中以 **MTF（Multi-Task Fusion）多任务融合 Transformer** 为核心创新。
 
 ```
-Step 1: train.py        ── 训练双塔召回模型 (TwoTower) + MMoE 精排模型，生成 reward 预测值
-Step 2: test.py         ── 构建全量候选集 (cross_join)，用已训练模型打分，输出 RL 用的 predict 文件
-Step 3: mfc_train_test.py ── 训练 MFC 列表打分 Transformer，完成最终 RL 评估
+候选集 (~7,097)
+    ↓ TwoTower 双塔粗排     two_tower.py
+top-500
+    ↓ MMoE 多任务精排        mmoe.py
+500 条精排分
+    ↓ MTF 多任务融合         pipeline_demo.py（内置）
+    └─ 把 7 个任务分作为 token，用 Transformer 建模任务间依赖，输出融合分
+top-60（精排 × MTF 融合截断）
+    ↓ PRM Transformer 重排  prm_rerank.py
+    └─ 列表级上下文建模（60 个 item 互相感知），输出重排分
+top-8 曝光
+```
+
+**一键运行：**
+
+```bash
+python pipeline_demo.py --data_path ../KuaiRand-1K --nrows 100000
 ```
 
 ---
