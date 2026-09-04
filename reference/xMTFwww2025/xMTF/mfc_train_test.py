@@ -25,12 +25,8 @@ import argparse
 import time
 from datetime import datetime
 
-#import tensorflow.compat.v1 as tf
-import tensorflow as tf
 print("tensorflow version: {}". format(tf.__version__))
-from tensorflow.python.keras.models import Model
-from tensorflow.python.keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau
-import tensorflow.compat.v1 as tf
+from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau
 import deepctr
 print("deepctr version: {}". format(deepctr.__version__))
 from deepctr.feature_column import SparseFeat, DenseFeat, get_feature_names

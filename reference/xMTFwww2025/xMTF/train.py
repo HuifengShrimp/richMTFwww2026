@@ -21,8 +21,8 @@ import time
 
 import tensorflow as tf
 print("tensorflow version: {}". format(tf.__version__))
-from tensorflow.python.keras.models import Model
-from tensorflow.python.keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau
+from tensorflow.keras.models import Model
+from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau
 
 import deepctr
 print("deepctr version: {}". format(deepctr.__version__))
@@ -208,7 +208,7 @@ if __name__ == '__main__':
         loss_weights=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 100.0],
     )
 
-    ckpt = ModelCheckpoint(f'./models/prerank_{data_type}.h5', save_best_only=True, save_weights_only=True, verbose=1, monitor='val_loss', mode='min')
+    ckpt = ModelCheckpoint(f'./models/prerank_{data_type}.weights.h5', save_best_only=True, save_weights_only=True, verbose=1, monitor='val_loss', mode='min')
 
     history = model_prerank.fit(
         x=train_model_input,
@@ -286,7 +286,7 @@ if __name__ == '__main__':
         loss_weights=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 100.0],
     )
 
-    ckpt = ModelCheckpoint(f'./models/fullrank_{data_type}.h5', save_best_only=True, save_weights_only=True, verbose=1, monitor='val_loss', mode='min')
+    ckpt = ModelCheckpoint(f'./models/fullrank_{data_type}.weights.h5', save_best_only=True, save_weights_only=True, verbose=1, monitor='val_loss', mode='min')
 
     history = model_fullrank.fit(
         x=train_model_input,

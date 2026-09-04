@@ -10,8 +10,8 @@ Reference:
 
 import tensorflow as tf
 
-from tensorflow.python.keras.models import Model
-from tensorflow.python.keras.layers import Dense, Lambda
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Dense, Lambda
 
 from deepctr.feature_column import build_input_features, input_from_feature_columns
 from deepctr.layers.core import PredictionLayer, DNN

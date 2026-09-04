@@ -3,3 +3,10 @@ __pycache__/
 .DS_Store
 .ipynb_checkpoints/
 *.log
+
+# 数据集（体积过大，不上传）
+reference/xMTFwww2025/KuaiRand-1K/
+
+# 训练产出的模型权重和预测结果
+reference/xMTFwww2025/xMTF/models/
+reference/xMTFwww2025/xMTF/results/

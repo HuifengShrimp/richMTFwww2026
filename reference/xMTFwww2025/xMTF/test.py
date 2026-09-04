@@ -22,8 +22,8 @@ import time
 import tensorflow as tf
 print("tensorflow version: {}". format(tf.__version__))
 
-from tensorflow.python.keras.models import Model
-from tensorflow.python.keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau
+from tensorflow.keras.models import Model
+from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau
 
 import deepctr
 print("deepctr version: {}". format(deepctr.__version__))
@@ -244,7 +244,7 @@ if __name__ == '__main__':
         seed=seed,
     )
 
-    model_prerank.load_weights(f"./models/prerank_{data_type}.h5")
+    model_prerank.load_weights(f"./models/prerank_{data_type}.weights.h5")
 
     # get_tower_emb()
 
@@ -260,7 +260,7 @@ if __name__ == '__main__':
         seed=seed,
     )
 
-    model_fullrank.load_weights(f"./models/fullrank_{data_type}.h5")
+    model_fullrank.load_weights(f"./models/fullrank_{data_type}.weights.h5")
 
     unique_user_ids = train['user_id'].unique()  # 找出所有不重复的user_id
     unique_video_ids = train['video_id'].unique()  # 找出所有不重复的video_id

@@ -1,0 +1,10 @@
+tensorflow==2.15.1
+keras==2.15.0
+deepctr==0.9.4
+pandas==2.2.3
+numpy==1.26.4
+scikit-learn==1.5.2
+matplotlib==3.9.2
+seaborn==0.13.2
+tqdm==4.67.1
+pyarrow==18.1.0

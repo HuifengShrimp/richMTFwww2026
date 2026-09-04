@@ -11,8 +11,8 @@ from itertools import chain
 
 import tensorflow as tf
 
-from tensorflow.python.keras.models import Model
-from tensorflow.python.keras.layers import Dense, Lambda, Dot, Multiply
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Dense, Lambda, Dot, Multiply
 
 from deepctr.feature_column import build_input_features, get_linear_logit, input_from_feature_columns
 from deepctr.layers.core import PredictionLayer, DNN
