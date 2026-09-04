@@ -378,15 +378,39 @@ models/1k/mfc_model/    ← MFC 模型权重
 ## 七、项目文件说明
 
 ```
-xMTF/
-├── train.py            ← Step 1：训练 TwoTower + MMoE reward 模型
-├── test.py             ← Step 2：构建候选集，生成 RL 所需 predict 文件
-├── mfc_train_test.py   ← Step 3：MFC Transformer 训练 + RL 评估
-├── two_tower.py        ← TwoTower 双塔召回模型定义
-├── mmoe.py             ← MMoE 多任务精排模型定义
-├── mfc.py              ← MFC 列表打分 Transformer 定义
-├── simulator.py        ← ESEnv 用户行为模拟器（环境）
-├── td3.py              ← TD3 强化学习算法
-├── ddpg.py             ← DDPG 强化学习算法
-└── prepare_data.py     ← 数据预处理：CSV → PKL（需手动运行一次）
+xMTFwww2025/
+├── README.md                   # 本文档：环境配置 & 上手指南
+├── PIPELINE_DOC.md             # 完整流水线说明（各阶段输入输出、模型结构）
+├── TRAINING_SOP.md             # 傻瓜式训练 SOP（7步跑通全流程）
+│
+├── KuaiRand-1K/                # 数据集（需自行下载，不上传 git）
+│   └── data/
+│       ├── log_standard_4_08_to_4_21_1k.pkl    # 行为日志（前半月）
+│       ├── log_standard_4_22_to_5_08_1k.pkl    # 行为日志（后半月）
+│       ├── user_features_1k.pkl                # 用户特征（1000行）
+│       ├── video_features_basic_1k.pkl         # 视频基础特征
+│       └── video_features_statistic_1k.pkl     # 视频统计特征
+│
+└── xMTF/                       # 核心代码
+    ├── requirements.txt        # 依赖列表（TF2.15.1 + deepctr 0.9.4）
+    │
+    ├── pipeline_demo.py        # ★ 完整四阶段流水线（粗排→精排→MTF→PRM重排）
+    ├── prepare_data.py         # 数据预处理（CSV → PKL，生成 data/ 目录）
+    │
+    ├── two_tower.py            # 粗排模型：TwoTower 双塔召回
+    ├── mmoe.py                 # 精排模型：MMoE 多任务精排
+    ├── prm_rerank.py           # 重排模型：PRM Transformer 列表级重排
+    │
+    ├── train.py                # 原始训练脚本（TwoTower + MMoE）
+    ├── test.py                 # 原始推理脚本（生成候选集打分）
+    ├── mfc_train_test.py       # MFC Transformer 训练 & 评估
+    │
+    ├── mfc.py                  # MFC 模型定义
+    ├── simulator.py            # RL 环境模拟器
+    ├── rule_agent.py           # 规则 Agent
+    ├── td3.py                  # TD3 强化学习 Agent
+    ├── ddpg.py                 # DDPG 强化学习 Agent
+    └── util.py                 # 工具函数
 ```
+
+> **推荐使用 `pipeline_demo.py`**：不需要 RL 环境，一个脚本跑通粗排→精排→MTF融合→PRM重排→top-8曝光完整链路，并输出各阶段的离线 AUC 评估。
